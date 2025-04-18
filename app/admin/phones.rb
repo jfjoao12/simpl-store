@@ -21,9 +21,9 @@ ActiveAdmin.register Phone do
   form do |f|
     f.semantic_errors
     f.inputs do
-      f.input :phone_feature, as: :select, collection: PhoneFeature.all.map { |pf| [ pf.brand, pf.id ] }
+      # f.input :phone_feature, as: :select, collection: PhoneFeature.all.map { |pf| [ pf.brand, pf.id ] } made it auto in the future!
       f.input :model
-      f.input :color
+      # f.input :color
       f.input :price
       f.input :storage_size
       f.input :imei_number
