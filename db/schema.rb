@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_18_054317) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_18_173058) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -36,4 +36,54 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_18_054317) do
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
+
+  create_table "customers", force: :cascade do |t|
+    t.integer "phone_id", null: false
+    t.string "name"
+    t.string "phone_number"
+    t.string "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["phone_id"], name: "index_customers_on_phone_id"
+  end
+
+  create_table "invoices", force: :cascade do |t|
+    t.integer "customer_id", null: false
+    t.integer "phone_id", null: false
+    t.string "calculated_price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_invoices_on_customer_id"
+    t.index ["phone_id"], name: "index_invoices_on_phone_id"
+  end
+
+  create_table "phone_features", force: :cascade do |t|
+    t.string "brand"
+    t.string "main_camera_info"
+    t.string "selfie_camera_info"
+    t.string "chipset"
+    t.string "os"
+    t.string "cpu"
+    t.string "gpu"
+    t.string "battery"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "phones", force: :cascade do |t|
+    t.integer "phone_feature_id", null: false
+    t.string "model"
+    t.string "color"
+    t.string "price"
+    t.string "storage_size"
+    t.string "imei_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["phone_feature_id"], name: "index_phones_on_phone_feature_id"
+  end
+
+  add_foreign_key "customers", "phones"
+  add_foreign_key "invoices", "customers"
+  add_foreign_key "invoices", "phones"
+  add_foreign_key "phones", "phone_features"
 end

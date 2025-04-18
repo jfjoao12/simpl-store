@@ -1,0 +1,2 @@
+class PhoneFeature < ApplicationRecord
+end
